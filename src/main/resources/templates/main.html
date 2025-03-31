@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Main Page</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}"> <!-- CSS 파일 링크 -->
+</head>
+<body>
+<div class="header-links" th:align="right">
+  <h3>
+    <a href="#" class="bt1">목록보기</a>
+    <a href="#" class="bt2">공지사항</a>
+  </h3>
+</div>
+<div class="container" th:align="center">
+  <h1>Here Search!! 🔍</h1>
+    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+  <form action="/search" method="get">
+    <input type="text" name="keyword" class="form-control search-input" placeholder="검색어를 입력하세요" required>
+    <button type="submit" class="searchbtn">검색</button>
+  </form>
+</div>
+</body>
+</html>
