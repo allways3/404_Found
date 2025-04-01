@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메인</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .login-btn {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .boardDTO-btn {
+            background-color: #28a745;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<h1>메인화면</h1>
+<div class="container">
+    <div align="right">
+        <th:block sec:authorize="isAuthenticated()">
+            <h3 align="right"><span sec:authentication="principal"></span></h3>
+            <h3 align="right"><span sec:authentication="principal.Username"></span>님 환영합니다</h3>
+            <button onclick="location.href='/member/logout'">로그아웃</button>
+        </th:block>
+
+        <th:block sec:authorize="isAnonymous()">
+            <h3>로그인이 필요한 서비스입니다.</h3>
+            <button onclick="location.href='/member/login'">로그인</button>
+        </th:block>
+    </div>
+    <th:block sec:authorize="hasAnyRole('USER', 'ADMIN')">
+        <button onclick="location.href='/board/list'">공지사항</button>
+    </th:block>
+    <!--    <button class="login-btn" onclick="location.href='/member/login'">로그인하기</button>-->
+    <!--    <button class="boardDTO-btn" onclick="location.href='/boardDTO/list'">공지사항</button>-->
+</div>
+</body>
+</html>
