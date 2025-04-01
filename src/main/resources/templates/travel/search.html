@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>검색 결과</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<div class="header-links" th:align="right">
+    <a href="#" class="bt1">목록보기</a>
+    <a href="#" class="bt2">공지사항</a>
+</div>
+<div class="container" th:align="center">
+    <h1>Here Search!! 🔍</h1>
+    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+    <form action="/search" method="get">
+        <input type="text" name="keyword" class="search data" placeholder="검색어를 입력하세요" required>
+        <button type="submit" class="search btn">검색</button>
+    </form>
+</div>
+<div class="container2" th:align="center">
+    <table class="table" border="1">
+        <thead>
+            <tr th:height="70px">
+                <th scope="col" style="width: 100px;">번호</th>
+                <th scope="col" style="width: 300px;">이름</th>
+                <th scope="col" style="width: 500px;">주소</th>
+                <th scope="col" style="width: 400px;">상세보기</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr th:each="travel : ${travels}">
+            <td th:text="${travel.no}"></td>
+            <td th:text="${travel.title}"></td>
+            <td th:text="${travel.address}"></td>
+            <td>
+                <a th:href="@{/travel/selectone(no=${travel.no})}"
+                   class="text-decoration-none">상세보기</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <table>
+        <tr th:if="${travels.isEmpty()}">
+            <td colspan="4" style="text-align: center; font-size: 30px">
+                검색한 단어가 포함된 장소가 없습니다.
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

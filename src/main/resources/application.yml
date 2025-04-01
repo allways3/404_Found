@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/travel_db
-    username: root      # MySQL 사용자 이름
-    password: mysql      # MySQL 비밀번호
+    username: scott      # MySQL 사용자 이름
+    password: tiger      # MySQL 비밀번호
     driver-class-name: com.mysql.cj.jdbc.Driver
   jdbc:
     initialize-schema: always
