@@ -16,28 +16,14 @@ show TABLES;
 
 SELECT * FROM travel;
 
-
-CREATE TABLE member (
-	no BIGINT AUTO_INCREMENT PRIMARY KEY,
-	id VARCHAR(255) UNIQUE, -- 일반 회원 아이디 (OAuth2 회원은 NULL 가능)
-	pw VARCHAR(255), -- 일반 회원 비밀번호 (OAuth2 회원은 NULL 가능)
-	name VARCHAR(20) NOT NULL, -- 회원 이름
-	tel VARCHAR(11), -- 회원 전화번호
-	member_role VARCHAR(100) DEFAULT 'ROLE_USER' NOT NULL, -- 회원 역할
-	member_email VARCHAR(100) UNIQUE NOT NULL, -- 회원 이메일 (일반, OAuth2 모두 필요)
-	created_date DATETIME DEFAULT CURRENT_TIMESTAMP, -- 생성일
-	created_person VARCHAR(255), -- 생성자
-	modified_date DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- 수정일
-	modified_person VARCHAR(255), -- 수정자
-	oauth_provider VARCHAR(50), -- OAuth2 제공자 (google, facebook 등)
-	oauth_provider_id VARCHAR(255) -- OAuth2 제공자에서 제공하는 사용자 ID
+CREATE TABLE MEMBER (
+  no BIGINT AUTO_INCREMENT PRIMARY KEY,
+  id VARCHAR(20) UNIQUE,
+  pw VARCHAR(200),
+  name VARCHAR(20),
+  tel VARCHAR(11),
+  create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
-INSERT INTO member (id, pw, name, tel, member_role, member_email, created_date, created_person, modified_date, modified_person)
-VALUES 
-('admin', 'admin', '관리자', '010', 'ROLE_ADMIN', 'admin@naver.com', NOW(), 'admin', NOW(), 'admin');
-
-
 
 -- BOARD 테이블 생성
 CREATE TABLE board (
@@ -53,6 +39,8 @@ CREATE TABLE board (
   status char(1) default 'y',
   foreign key (writer) references member(id)
 );
+
+ALTER TABLE board DROP FOREIGN KEY board_ibfk_1;
 
 -- BOARD 데이터 삽입
 INSERT INTO board (title, content, writer) 
