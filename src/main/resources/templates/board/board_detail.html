@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>공지사항 상세보기</title>
+    <link rel="stylesheet" href="/css/travel_list.css">
+    <style>
+
+
+        .header {
+            position: relative;
+            padding: 20px;
+            text-align: center;
+        }
+
+        th, td {
+            border: 2px solid #ccc;
+            text-align: left;
+            box-sizing: border-box;
+        }
+
+        th {
+            background-color: #e0e0e0;
+            width: 20%;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        td {
+            width: 80%;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .edit-btn {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #0d47a1;
+            color: white;
+            font-size: 14px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid #0d47a1;
+        }
+
+        .edit-btn:hover {
+            text-decoration: underline;
+            color: red;
+        }
+
+        .list-btn {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .list-btn:hover {
+            background-color: #545b62;
+        }
+
+        .notice-table {
+            width: 100%;
+            border: 2px solid #ddd;
+            border-collapse: collapse;
+        }
+
+        .notice-table td {
+            border: 2px solid #ddd;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .notice-title {
+            background-color: #ddd;
+            font-weight: bold;
+
+        }
+
+        .notice-meta {
+            background-color: #ddd;
+            font-weight: bold;
+        }
+
+        .notice-content {
+            height: 200px; /* 내용 부분 크기 고정 */
+        }
+    </style>
+</head>
+<body>
+<a onclick="location.href='/'" class="home-btn">🏠</a>
+<div class="container">
+    <div class="header">
+        <span class="title">공지사항</span>
+
+        <div sec:authorize="hasRole('ROLE_ADMIN')" align="right">
+            <a th:href="@{/board/update(no=${b.no})}" class="edit-btn">수정</a>
+        </div>
+    </div>
+
+    <table class="notice-table">
+        <tr>
+            <td colspan="3" class="notice-title">
+                <strong style="font-size: 22px; font-weight: bold;">[ 공지사항 ]</strong> <span th:text="${b.title}"
+                                                                                            style="font-size: 22px; font-weight: bold;"></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="notice-meta">
+                작성자 : <span th:text="${b.writer}"></span>
+            </td>
+            <td class="notice-meta">
+                작성일 : <span th:text="${#temporals.format(b.createdDate, 'yyyy-MM-dd')}"></span>
+            </td>
+            <td class="notice-meta" style="text-align: right;">
+                조회수 : <span th:text="${b.count}"></span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" class="notice-content">
+                <p th:text="${b.content}"></p>
+            </td>
+        </tr>
+    </table>
+
+    <div class="button-container" style="margin: 10px 0;">
+        <!--        <a th:href="@{/board/delete(no=${b.no})}" class="btn delete-btn" onclick="return confirm('삭제하시겠습니까?');">삭제</a>-->
+        <a th:href="@{/board/list}" class="btn list-btn">목록으로</a>
+    </div>
+</div>
+</body>
+</html>

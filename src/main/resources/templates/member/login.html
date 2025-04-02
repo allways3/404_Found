@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인</title>
+    <link rel="stylesheet" href="/css/travel_list.css">
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <style>
+        /* 버튼 공통 스타일 */
+        .btn-custom {
+            background-color: #0D47A1; /* 버튼 배경색 */
+            color: white; /* 글씨 색상 */
+            font-size: 16px; /* 글씨 크기 */
+            width: 100px; /* 버튼 너비 */
+            height: 30px; /* 버튼 높이 */
+            border: none; /* 테두리 제거 */
+            border-radius: 5px; /* 모서리 둥글게 */
+            text-align: center;
+            cursor: pointer; /* 마우스 오버 시 커서 변경 */
+            text-decoration: none; /* 링크 밑줄 제거 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 5px 0;
+        }
+
+        /* <input> 버튼 스타일 맞추기 */
+        .btn-custom-input {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0; /* 기본 padding 제거 */
+            line-height: normal; /* 기본 버튼과 높이 맞춤 */
+        }
+
+        /* 버튼 호버 효과 */
+
+
+        .form-group {
+            display: flex;
+            align-items: center; /* 세로 중앙 정렬 */
+            justify-content: center; /* 전체 가운데 정렬 */
+            gap: 10px; /* 라벨과 입력 필드 사이 간격 */
+            margin-bottom: 10px; /* 각 입력 필드 간 간격 */
+        }
+
+        .form-group span {
+            width: 80px; /* 라벨(아이디, 비밀번호) 너비 고정 */
+            text-align: right; /* 오른쪽 정렬 */
+        }
+
+        .form-group input {
+            width: 200px; /* 입력칸 너비 */
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<a onclick="location.href='/'" class="home-btn">🏠</a>
+<div class="container">
+    <div class="header">로그인 하기</div>
+    <br><br><br>
+
+
+    <form action="/member/login" method="post" id="loginForm">
+        <div class="form-group">
+            <span>아이디  </span>
+            <input type="text" name="username">
+            <!-- 시큐리티에서는 반드시 username(소문자)으로 name값 설정 , 시큐리티 내부에서 만들어놓은 핸들러 메소드를 사용하기 때문-->
+        </div>
+
+        <div class="form-group">
+            <span>비밀번호 </span>
+            <input type="password" name="password">
+            <!-- 시큐리티에서는 반드시 password(소문자)으로 name값 설정 -->
+        </div>
+    </form>
+
+    <br><br><br>
+    <div class="button-container">
+        <input type="submit" value="로그인" class="btn-custom btn-custom-input">
+        <a href="/member/regist" class="btn-custom">회원 가입</a>
+    </div>
+
+    <script>
+        $('#loginForm').keypress(function (e) {
+            if (e.which === 13) { // 엔터키 체크
+                e.preventDefault(); // 기본 동작 방지
+                $("#loginForm").submit(); // 폼 전송
+            }
+        });
+
+        $("input[type=submit]").click(function (e) {
+            e.preventDefault(); // 기본 동작 방지 (중복 방지)
+            $("#loginForm").submit(); // 폼 전송
+        });
+    </script>
+</div>
+</body>
+</html>
+
+

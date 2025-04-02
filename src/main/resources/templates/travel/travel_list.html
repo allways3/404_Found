@@ -1,0 +1,45 @@
+<!--정승호 관광지 목록-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>관광지 페이지별 목록</title>
+    <link rel="stylesheet" href="/css/travel_list.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="header">관광지 페이지별 목록보기</div>
+    <table>
+        <thead>
+        <tr>
+            <th>No.</th>
+            <th>관광지명</th>
+            <th>주소</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="travel : ${travels}">
+            <td th:text="${travel.no}"></td>
+            <td th:text="${travel.title}"></td>
+            <td th:text="${travel.address}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- 페이지네이션 -->
+    <div class="pagination">
+        <a th:if="${currentPage > 1}" th:href="@{'/travel/list?page=' + ${currentPage - 1}}">이전</a>
+
+        <span th:each="page : ${#numbers.sequence(1, totalPages)}">
+      <a th:if="${page != currentPage}" th:href="@{'/travel/list?page=' + ${page}}" th:text="${page}"></a>
+      <span th:if="${page == currentPage}" class="current" th:text="${page}"></span>
+    </span>
+
+        <a th:if="${currentPage < totalPages}" th:href="@{'/travel/list?page=' + ${currentPage + 1}}">다음</a>
+    </div>
+</div>
+
+</body>
+</html>
+
