@@ -35,11 +35,13 @@ public class TravelController {
         return "travel/search";
     }
 
-    // 주변 관광지 보기 - 김민호
-    @GetMapping("/travels/{title}")
-    public String getNearbyTravels(@PathVariable String title, Model model) {
-        model.addAttribute("title", title);
-        return "travel/nearbyTravels"; // nearbyTravels.html 뷰를 반환
+    // 주변 관광지 조회 - 김민호
+    @GetMapping("/near")
+    public String getNearTouristSpots(Model model) {
+
+        List<TravelDTO> nearbyTouristSpots = travelService.getNearTouristSpots();
+        model.addAttribute("nearbyTouristSpots", nearbyTouristSpots);
+        return "travel/nearTouristSpots";
     }
 
     // 관광지 목록 - 정승호

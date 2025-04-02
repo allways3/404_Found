@@ -21,4 +21,7 @@ public interface TravelMapper {
     //안태희
     @Select("SELECT * FROM travel WHERE name LIKE CONCAT('%', #{name}, '%')")
     List<TravelDTO> findByName(@Param("name") String name);
+
+    //김민호
+    List<TravelDTO> getNearTravel();
 }

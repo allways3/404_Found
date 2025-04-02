@@ -40,4 +40,9 @@ public class TravelService {
     public List<TravelDTO> findByName(String name) {
         return travelMapper.findByName(name);
     }
+
+    // 김민호
+    public List<TravelDTO> getNearTouristSpots() {
+        return travelMapper.getNearTravel();
+    }
 }
