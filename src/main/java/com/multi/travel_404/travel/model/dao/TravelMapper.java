@@ -23,5 +23,5 @@ public interface TravelMapper {
     List<TravelDTO> findByName(@Param("name") String name);
 
     //김민호
-    List<TravelDTO> getNearTravel();
+    List<TravelDTO> getNearTravel(String district);
 }

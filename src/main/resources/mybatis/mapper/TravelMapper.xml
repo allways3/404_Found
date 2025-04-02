@@ -32,7 +32,7 @@
     </select>
 
     <!-- 주변 관광지 정보 조회 - 김민호 -->
-    <select id="getNearTravel" resultType="com.multi.travel_404.travel.model.dto.TravelDTO">
-        SELECT * FROM travel where district = '수도권'
+    <select id="getNearTravel" parameterType="String" resultType="com.multi.travel_404.travel.model.dto.TravelDTO">
+        SELECT * FROM travel where district = #{district}
     </select>
 </mapper>

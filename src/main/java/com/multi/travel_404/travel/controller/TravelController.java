@@ -37,9 +37,9 @@ public class TravelController {
 
     // 주변 관광지 조회 - 김민호
     @GetMapping("/near")
-    public String getNearTouristSpots(Model model) {
+    public String getNearTouristSpots(@RequestParam(name = "district", defaultValue = "수도권") String district, Model model) {
 
-        List<TravelDTO> nearbyTouristSpots = travelService.getNearTouristSpots();
+        List<TravelDTO> nearbyTouristSpots = travelService.getNearTouristSpots(district);
         model.addAttribute("nearbyTouristSpots", nearbyTouristSpots);
         return "travel/nearTouristSpots";
     }

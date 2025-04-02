@@ -42,7 +42,7 @@ public class TravelService {
     }
 
     // 김민호
-    public List<TravelDTO> getNearTouristSpots() {
-        return travelMapper.getNearTravel();
+    public List<TravelDTO> getNearTouristSpots(String district) {
+        return travelMapper.getNearTravel(district);
     }
 }
