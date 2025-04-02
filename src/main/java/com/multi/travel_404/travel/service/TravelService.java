@@ -12,14 +12,28 @@ import java.util.List;
 public class TravelService {
     private final TravelMapper travelMapper;
 
-    //한세빈
+    private static final int PAGE_SIZE = 10;  // 한 페이지당 10개씩 - 정승호
+
     public TravelService(TravelMapper travelMapper) {
         this.travelMapper = travelMapper;
     }
 
-    //한세빈
+    // 한세빈
     public List<TravelDTO> searchTravels(String keyword) {
         return travelMapper.searchTravels(keyword);
+    }
+
+    // 정승호
+    public List<TravelDTO> getTravelList(int page) {
+        int PAGE_SIZE = 10;
+        int offset = (page - 1) * PAGE_SIZE;  // page 1: offset=0, page 2: offset=10, ...
+        return travelMapper.getAllTravels(offset, PAGE_SIZE);
+    }
+
+    // 정승호
+    public int getTotalPages() {
+        int totalCount = travelMapper.getTotalCount();
+        return (int) Math.ceil(totalCount / (double) PAGE_SIZE);
     }
 
 }

@@ -41,4 +41,17 @@ public class TravelController {
         model.addAttribute("title", title);
         return "travel/nearbyTravels"; // nearbyTravels.html 뷰를 반환
     }
+
+    // 관광지 목록 - 정승호
+    @GetMapping("/list")
+    public String getTravelList(@RequestParam(name = "page", defaultValue = "1") int page, Model model) {
+        List<TravelDTO> travelList = travelService.getTravelList(page);
+        int totalPages = travelService.getTotalPages();
+
+        model.addAttribute("travels", travelList);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+
+        return "travel/travel_list";
+    }
 }
