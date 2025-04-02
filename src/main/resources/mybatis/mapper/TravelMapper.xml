@@ -2,13 +2,18 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.multi.travel_404.model.dao.TravelMapper">
+<mapper namespace="com.multi.travel_404.travel.model.dao.TravelMapper">
 
-    <!-- 검색 목록 -->
-    <select id="searchTravels" resultType="com.multi.travel_404.model.dto.TravelDTO">
+    <!-- 검색 목록 한세빈 -->
+    <select id="searchTravels" resultType="com.multi.travel_404.travel.model.dto.TravelDTO">
         SELECT no, district, title, address
         FROM travel
-        WHERE title LIKE CONCAT('%', #{keyword}, '%') OR address LIKE CONCAT('%', #{keyword}, '%')
+        WHERE title LIKE CONCAT('%'
+            , #{keyword}
+            , '%')
+           OR address LIKE CONCAT('%'
+            , #{keyword}
+            , '%')
     </select>
 
 </mapper>

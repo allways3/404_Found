@@ -1,0 +1,96 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="https://www.thymeleaf.org"-->
+<!--      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>메인</title>-->
+<!--    <style>-->
+<!--        body {-->
+<!--            font-family: Arial, sans-serif;-->
+<!--            text-align: center;-->
+<!--            margin-top: 100px;-->
+<!--        }-->
+
+<!--        h1 {-->
+<!--            color: #333;-->
+<!--        }-->
+
+<!--        .container {-->
+<!--            display: flex;-->
+<!--            justify-content: center;-->
+<!--            gap: 20px;-->
+<!--        }-->
+
+<!--        button {-->
+<!--            padding: 10px 20px;-->
+<!--            font-size: 16px;-->
+<!--            cursor: pointer;-->
+<!--            border: none;-->
+<!--            border-radius: 5px;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>메인화면</h1>-->
+<!--<div class="container">-->
+<!--    <div align="right">-->
+<!--        <th:block sec:authorize="isAuthenticated()">-->
+<!--            <h3 align="right"><span sec:authentication="principal"></span></h3>-->
+<!--            <h3 align="right"><span sec:authentication="principal.Username"></span>님 환영합니다</h3>-->
+<!--            <button onclick="location.href='/member/logout'">로그아웃</button>-->
+<!--        </th:block>-->
+
+<!--        <th:block sec:authorize="isAnonymous()">-->
+<!--            <h3>로그인이 필요한 서비스입니다.</h3>-->
+<!--            <button onclick="location.href='/member/login'">로그인</button>-->
+<!--        </th:block>-->
+<!--    </div>-->
+<!--    <th:block sec:authorize="hasAnyRole('USER', 'ADMIN')">-->
+<!--        <button onclick="location.href='/board/list'">공지사항</button>-->
+<!--    </th:block>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"> <!-- CSS 파일 링크 -->
+</head>
+<body>
+<div class="header-links" th:align="right">
+    <h3>
+
+        <div align="right">
+            <a href="#" class="bt1">목록보기</a>
+            <th:block sec:authorize="isAuthenticated()">
+                <!--                <h3 align="right"><span sec:authentication="principal"></span></h3>-->
+                <!--                <h3 align="right"><span sec:authentication="principal.Username"></span>님 환영합니다</h3>-->
+                <button onclick="location.href='/member/logout'">로그아웃</button>
+            </th:block>
+
+            <th:block sec:authorize="isAnonymous()">
+                <!--                <h3>관리자 로그인</h3>-->
+                <button onclick="location.href='/member/login'">로그인</button>
+            </th:block>
+            <th:block sec:authorize="hasAnyRole('USER', 'ADMIN')">
+                <button onclick="location.href='/board/list'">공지사항</button>
+            </th:block>
+        </div>
+
+    </h3>
+</div>
+<div class="container" th:align="center">
+    <h1>Here Search!! 🔍</h1>
+    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+    <form action="/travel/search" method="get">
+        <input type="text" name="keyword" class="form-control search-input" placeholder="검색어를 입력하세요" required>
+        <button type="submit" class="searchbtn">검색</button>
+    </form>
+</div>
+</body>
+</html>
