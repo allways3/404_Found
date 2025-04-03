@@ -22,7 +22,7 @@ public class MybatisConfig {
         seb.setMapperLocations(res);
 
         seb.setDataSource(datasource);
-        // DTO 패키지에 있는 클래스들을 자동으로 별칭 등록 (MemberDto -> memberDto)
+
         seb.setTypeAliasesPackage("com.multi.travel_404.member.model.dto, com.multi.travel_404.board.model.dto, com.multi.travel_404.travel.model.dto");
 
         SqlSessionFactory sqlSessionFactory = seb.getObject();

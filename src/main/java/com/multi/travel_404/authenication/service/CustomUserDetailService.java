@@ -56,8 +56,6 @@ public class CustomUserDetailService implements UserDetailsService {
         permitListMap.put("adminPermitList", adminPermitList);
         permitListMap.put("memberPermitList", memberPermitList);
 
-//        System.out.printf(adminPermitList.toString());
-//        System.out.printf(memberPermitList.toString());
         return permitListMap;
     }
 }

@@ -1,20 +1,129 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>게시글 작성</title>
+    <title>공지사항 작성</title>
+    <link rel="stylesheet" href="/css/travel_list.css">
+    <style>
+        .header {
+            position: relative;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .delete-btn {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #0d47a1;
+            color: white;
+            font-size: 15px;
+            border: none;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .delete-btn:hover {
+            text-decoration: underline;
+            color: red;
+        }
+
+        th, td {
+            border: 2px solid #ccc;
+            text-align: center;
+            height: 50px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        th {
+            background-color: #e0e0e0;
+            font-weight: bold;
+            width: 15%;
+        }
+
+        td {
+            width: 85%;
+            text-align: left;
+        }
+
+        td input, td textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 200px;
+            resize: none;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .submit-btn {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-<h2>새 게시글 작성</h2>
-<form action="/board/insert" method="post">
-    <label for="title">제목:</label>
-    <input type="text" id="title" name="title" required>
-    <br>
-    <label for="content">내용:</label>
-    <textarea id="content" name="content" required></textarea>
-    <br>
-    <button type="submit">등록</button>
-</form>
-<a href="/board/list">목록으로</a>
+<div class="header-links" th:align="right">
+    <h3>
+        <div align="right">
+            <a href="/travel/list" style="text-decoration:none; color: inherit;" class="bt1">관광지 목록</a>
+            <a onclick="location.href='/'" class="home-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="35" height="35" viewBox="0,0,256,256">
+                    <g fill="#0d47a1" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                       stroke-linejoin="miter" stroke-miterlimit="10" style="mix-blend-mode: normal">
+                        <g transform="scale(5.12,5.12)">
+                            <path d="M24.96289,1.05469c-0.20987,0.00724 -0.41214,0.08036 -0.57812,0.20898l-23,17.94727c-0.43579,0.33978 -0.51361,0.96851 -0.17383,1.4043c0.33978,0.43579 0.96851,0.51361 1.4043,0.17383l1.38477,-1.08008v26.29102c0.00006,0.55226 0.44774,0.99994 1,1h13.83203c0.10799,0.01785 0.21818,0.01785 0.32617,0h11.67383c0.10799,0.01785 0.21818,0.01785 0.32617,0h13.8418c0.55226,-0.00006 0.99994,-0.44774 1,-1v-26.29102l1.38477,1.08008c0.2819,0.21983 0.65967,0.27257 0.991,0.13833c0.33133,-0.13423 0.56586,-0.43504 0.61526,-0.7891c0.0494,-0.35406 -0.09386,-0.70757 -0.37579,-0.92736l-7.61523,-5.94141v-7.26953h-6v2.58594l-9.38477,-7.32227c-0.18607,-0.14428 -0.41707,-0.21828 -0.65234,-0.20898zM25,3.32227l19,14.82617v26.85156h-12v-19h-14v19h-12v-26.85156zM37,8h2v3.70898l-2,-1.5625zM20,28h10v17h-10z"></path>
+                        </g>
+                    </g>
+                </svg>
+            </a>
+        </div>
+    </h3>
+</div>
+<div class="container">
+    <div class="header">
+        공지사항 작성
+        <a href="/board/list" class="delete-btn">취소</a>
+    </div>
+
+    <form action="/board/insert" method="post">
+        <table style="width: 100%; border-collapse: collapse; border-spacing: 0;">
+            <tr>
+                <th>제목</th>
+                <td><input type="text" id="title" name="title" required></td>
+            </tr>
+            <tr>
+                <th colspan="2">내용</th>
+            </tr>
+            <tr>
+                <td colspan="2"><textarea id="content" name="content" required></textarea></td>
+            </tr>
+        </table>
+        <div class="button-container" style="margin: 10px 0;">
+            <button type="submit" class="submit-btn">작성하기</button>
+        </div>
+    </form>
+</div>
 </body>
 </html>

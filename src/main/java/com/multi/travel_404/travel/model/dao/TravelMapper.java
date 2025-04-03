@@ -18,14 +18,14 @@ public interface TravelMapper {
     // 한세빈
     List<TravelDTO> searchTravels(String keyword);
 
-    //안태희
+    // 안태희
     @Select("SELECT * FROM travel WHERE name LIKE CONCAT('%', #{name}, '%')")
     List<TravelDTO> findByName(@Param("name") String name);
 
-    //김민호
+    // 김민호
     List<TravelDTO> getNearTravel(String district);
 
-
+    // 김민호
     TravelDTO getDetailTravel(int no);
 
 }

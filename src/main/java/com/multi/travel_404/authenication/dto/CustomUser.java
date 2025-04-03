@@ -21,13 +21,12 @@ public class CustomUser implements UserDetails {
 
     private MemberDTO memberDTO;
 
-    // 생성자에서 memberDTO 초기화
     public CustomUser(MemberDTO member, Collection<? extends GrantedAuthority> authorities) {
         this.id = member.getId();
         this.pw = member.getPw();
         this.memberEmail = member.getMemberEmail();
         this.authorities = authorities;
-        this.memberDTO = member;  // memberDTO를 초기화
+        this.memberDTO = member;
     }
 
     @Override
@@ -47,25 +46,21 @@ public class CustomUser implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return true; // 만료되지 않음
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true; // 계정이 잠기지 않음
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true; // 비밀번호가 만료되지 않음
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return true; // 계정이 활성화됨
+        return true;
     }
-//
-//    public MemberDTO getMemberDTO() {
-//        return memberDTO;  // 정상적으로 memberDTO를 반환
-//    }
 }

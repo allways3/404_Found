@@ -1,78 +1,126 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <script
-            src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script
-            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    <title>Insert title here</title>
-    <link rel="stylesheet" href="/css/travel_list.css"> <!-- CSS 파일 링크 -->
+    <title>로그인</title>
+    <link rel="stylesheet" href="/css/travel_list.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <style>
+        .container {
+            display: block; /* flex 제거 */
+            text-align: center;
+        }
+
+        /* 버튼 공통 스타일 */
+        .btn-custom {
+            background-color: #0D47A1; /* 버튼 배경색 */
+            color: white; /* 글씨 색상 */
+            font-size: 16px; /* 글씨 크기 */
+            width: 100px; /* 버튼 너비 */
+            height: 30px; /* 버튼 높이 */
+            border: none; /* 테두리 제거 */
+            border-radius: 5px; /* 모서리 둥글게 */
+            text-align: center;
+            cursor: pointer; /* 마우스 오버 시 커서 변경 */
+            text-decoration: none; /* 링크 밑줄 제거 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 5px 0;
+        }
+
+        /* <input> 버튼 스타일 맞추기 */
+        .btn-custom-input {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0; /* 기본 padding 제거 */
+            line-height: normal; /* 기본 버튼과 높이 맞춤 */
+        }
+
+        /* 버튼 호버 효과 */
+
+
+        .form-group {
+            display: flex;
+            align-items: center; /* 세로 중앙 정렬 */
+            justify-content: center; /* 전체 가운데 정렬 */
+            gap: 10px; /* 라벨과 입력 필드 사이 간격 */
+            margin-bottom: 10px; /* 각 입력 필드 간 간격 */
+        }
+
+        .form-group span {
+            width: 80px; /* 라벨(아이디, 비밀번호) 너비 고정 */
+            text-align: right; /* 오른쪽 정렬 */
+        }
+
+        .form-group input {
+            width: 200px; /* 입력칸 너비 */
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+
+    </style>
 </head>
 <body>
-<div class="container">
-    <div class="header">로그인</div>
-
-    <table align="center">
-        <form action="/member/login" method="post" id="loginForm">
-
-            <thead>
-            <tr>
-                <td>
-                    <div class="input-group mb-3 input-group-lg" align="right">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" style="width:120px">아이디</span>
-                        </div>
-                        <input type="text" class="form-control" name="username">
-                        <!-- 시큐리티에서는 반드시 username(소문자)으로 name값 설정 , 시큐리티 내부에서 만들어놓은 핸들러 메소드를 사용하기 때문-->
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="input-group mb-3 input-group-lg" align="right">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" style="width:120px">비밀번호</span>
-                        </div>
-                        <input type="password" class="form-control" name="password">
-                        <!-- 시큐리티에서는 반드시 password(소문자)으로 name값 설정 -->
-                    </div>
-                </td>
-            </tr>
-            </thead>
-
-        </form>
-    </table>
-
-    <input type="submit" value="로그인" class="btn btn-primary mb-3">
-
-    <a class="btn btn-warning btn-block mb-3" href="/member/regist">회원 가입</a>
-
-
-    <div class="text-center">
-        <!--    <input type="submit" value="로그인" class="btn btn-primary mb-3">-->
-
-        <!--    <a class="btn btn-warning btn-block mb-3" href="/member/regist">회원 가입</a>-->
-    </div>
+<div class="header-links" th:align="right">
+    <h3>
+        <div align="right">
+            <a href="/travel/list" style="text-decoration:none; color: inherit;" class="bt1">관광지 목록</a>
+            <a onclick="location.href='/'" class="home-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="35" height="35" viewBox="0,0,256,256">
+                    <g fill="#0d47a1" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                       stroke-linejoin="miter" stroke-miterlimit="10" style="mix-blend-mode: normal">
+                        <g transform="scale(5.12,5.12)">
+                            <path d="M24.96289,1.05469c-0.20987,0.00724 -0.41214,0.08036 -0.57812,0.20898l-23,17.94727c-0.43579,0.33978 -0.51361,0.96851 -0.17383,1.4043c0.33978,0.43579 0.96851,0.51361 1.4043,0.17383l1.38477,-1.08008v26.29102c0.00006,0.55226 0.44774,0.99994 1,1h13.83203c0.10799,0.01785 0.21818,0.01785 0.32617,0h11.67383c0.10799,0.01785 0.21818,0.01785 0.32617,0h13.8418c0.55226,-0.00006 0.99994,-0.44774 1,-1v-26.29102l1.38477,1.08008c0.2819,0.21983 0.65967,0.27257 0.991,0.13833c0.33133,-0.13423 0.56586,-0.43504 0.61526,-0.7891c0.0494,-0.35406 -0.09386,-0.70757 -0.37579,-0.92736l-7.61523,-5.94141v-7.26953h-6v2.58594l-9.38477,-7.32227c-0.18607,-0.14428 -0.41707,-0.21828 -0.65234,-0.20898zM25,3.32227l19,14.82617v26.85156h-12v-19h-14v19h-12v-26.85156zM37,8h2v3.70898l-2,-1.5625zM20,28h10v17h-10z"></path>
+                        </g>
+                    </g>
+                </svg>
+            </a>
+        </div>
+    </h3>
 </div>
+<div class="container">
+    <div class="header">로그인 하기</div>
+    <br><br><br>
 
 
-<script>
-    $('#loginForm').keypress(function (e) {
-        if (e.which === 13) { // 엔터키 체크
-            e.preventDefault(); // 기본 동작 방지
+    <form action="/member/login" method="post" id="loginForm">
+        <div class="form-group">
+            <span>아이디  </span>
+            <input type="text" name="username">
+        </div>
+        <div class="form-group">
+            <span>비밀번호 </span>
+            <input type="password" name="password">
+        </div>
+    </form>
+
+    <br><br><br>
+    <div class="button-container">
+        <input type="submit" value="로그인" class="btn-custom btn-custom-input">
+        <a href="/member/regist" class="btn-custom">회원 가입</a>
+    </div>
+
+    <script>
+        $('#loginForm').keypress(function (e) {
+            if (e.which === 13) { // 엔터키 체크
+                e.preventDefault(); // 기본 동작 방지
+                $("#loginForm").submit(); // 폼 전송
+            }
+        });
+
+        $("input[type=submit]").click(function (e) {
+            e.preventDefault(); // 기본 동작 방지 (중복 방지)
             $("#loginForm").submit(); // 폼 전송
-        }
-    });
-
-    $("input[type=submit]").click(function (e) {
-        e.preventDefault(); // 기본 동작 방지 (중복 방지)
-        $("#loginForm").submit(); // 폼 전송
-    });
-</script>
+        });
+    </script>
+</div>
 </body>
 </html>
+
+

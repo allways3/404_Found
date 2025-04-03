@@ -5,7 +5,6 @@ import com.multi.travel_404.travel.service.TravelService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -64,6 +63,7 @@ public class TravelController {
         return "travel/kakaomapsearch";
     }
 
+    // 주변 관광지 정보 - 김민호
     @GetMapping("/selectone")
     public String getDetailTravel(@RequestParam(name = "no") int no, Model model) {
         TravelDTO travelDTO = travelService.getDetailTravel(no);

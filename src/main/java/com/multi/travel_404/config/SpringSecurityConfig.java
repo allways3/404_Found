@@ -43,14 +43,8 @@ public class SpringSecurityConfig {
         List<String> adminList = permitMap.get("adminPermitList");
         List<String> memberList = permitMap.get("memberPermitList");
 
-
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorizenHttpRequest -> authorizenHttpRequest
-//                        .requestMatchers("/menu/**").authenticated()
-//                        .requestMatchers("/admin/**").hasRole("ADMIN")
-//                        .requestMatchers("order/**").hasAnyRole("ADMIN", "USER")
-//                        .anyRequest().permitAll()
-
                         .requestMatchers("/search").permitAll()
                         .requestMatchers(adminList.toArray(new String[adminList.size()])).hasRole("ADMIN")
                         .requestMatchers(memberList.toArray(new String[memberList.size()])).hasAnyRole("ADMIN", "USER")

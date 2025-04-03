@@ -5,80 +5,111 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>공지사항 목록</title>
+    <link rel="stylesheet" href="/css/travel_list.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 50px;
-        }
 
-        h1 {
-            color: #333;
-        }
-
-        table {
-            width: 80%;
-            margin: auto;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: center;
-        }
-
-        th {
-            background-color: #f4f4f4;
-        }
-
-        a {
-            text-decoration: none;
-            color: blue;
-        }
-
-        .home-btn {
-            display: block;
-            margin: 20px auto;
-            padding: 10px 20px;
-            background: #007bff;
+        .header {
+            background-color: #0d47a1;
             color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            border-bottom: 4px solid black;
+            position: relative;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .write-btn {
+            position: absolute;
             border: none;
-            cursor: pointer;
-            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #0d47a1;
+            color: white;
+            font-size: 15px;
+        }
+
+        .write-btn:hover {
+            text-decoration: underline;
+        }
+
+        .header {
+            position: relative;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header .admin-btn {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
         }
     </style>
 </head>
 <body>
-
-<!-- 로그인한 사용자가 admin 역할을 가지고 있는 경우에만 버튼을 표시 -->
-<div sec:authorize="hasRole('ROLE_ADMIN')">
-    <a href="/board/insert" class="btn btn-primary">공지사항 작성</a>
+<div class="header-links" th:align="right">
+    <h3>
+        <div align="right">
+            <a href="/travel/list" style="text-decoration:none; color: inherit;" class="bt1">관광지 목록</a>
+            <a onclick="location.href='/'" class="home-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="35" height="35" viewBox="0,0,256,256">
+                    <g fill="#0d47a1" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                       stroke-linejoin="miter" stroke-miterlimit="10" style="mix-blend-mode: normal">
+                        <g transform="scale(5.12,5.12)">
+                            <path d="M24.96289,1.05469c-0.20987,0.00724 -0.41214,0.08036 -0.57812,0.20898l-23,17.94727c-0.43579,0.33978 -0.51361,0.96851 -0.17383,1.4043c0.33978,0.43579 0.96851,0.51361 1.4043,0.17383l1.38477,-1.08008v26.29102c0.00006,0.55226 0.44774,0.99994 1,1h13.83203c0.10799,0.01785 0.21818,0.01785 0.32617,0h11.67383c0.10799,0.01785 0.21818,0.01785 0.32617,0h13.8418c0.55226,-0.00006 0.99994,-0.44774 1,-1v-26.29102l1.38477,1.08008c0.2819,0.21983 0.65967,0.27257 0.991,0.13833c0.33133,-0.13423 0.56586,-0.43504 0.61526,-0.7891c0.0494,-0.35406 -0.09386,-0.70757 -0.37579,-0.92736l-7.61523,-5.94141v-7.26953h-6v2.58594l-9.38477,-7.32227c-0.18607,-0.14428 -0.41707,-0.21828 -0.65234,-0.20898zM25,3.32227l19,14.82617v26.85156h-12v-19h-14v19h-12v-26.85156zM37,8h2v3.70898l-2,-1.5625zM20,28h10v17h-10z"></path>
+                        </g>
+                    </g>
+                </svg>
+            </a>
+        </div>
+    </h3>
 </div>
+<div class="container">
+    <div class="header">
+        📢 공지사항
+        <!-- 로그인한 사용자가 admin 역할을 가지고 있는 경우에만 버튼을 표시 -->
+        <div sec:authorize="hasRole('ROLE_ADMIN')" align="right">
+            <a href="/board/insert" class="write-btn">작성</a>
+        </div>
 
-<h1>📢 공지사항 목록</h1>
+    </div>
 
-<table>
-    <thead>
-    <tr>
-        <th>번호</th>
-        <th>제목</th>
-        <th>작성자</th>
-        <th>작성일</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!-- Thymeleaf 반복문으로 게시글 출력 -->
-    <tr th:each="boardDTO : ${list}">
-        <td th:text="${boardDTO.no}">1</td>
-        <td><a th:href="@{/board/selectone(no=${boardDTO.no})}" th:text="${boardDTO.title}">공지사항 제목</a></td>
-        <td th:text="${boardDTO.writer}">관리자</td>
-        <td th:text="${boardDTO.createdDate}">2025-04-01</td>
-    </tr>
-    </tbody>
-</table>
+    <table>
+        <thead>
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Thymeleaf 반복문으로 게시글 출력 -->
+        <tr th:each="boardDTO : ${list}">
+            <td th:text="${boardDTO.no}">1</td>
+            <td><a th:href="@{/board/selectone(no=${boardDTO.no})}"
+                   th:text="${boardDTO.title}">공지사항 제목</a></td>
+            <td th:text="${boardDTO.writer}">관리자</td>
+            <td th:text="${boardDTO.createdDate}">2025-04-01</td>
+        </tr>
+        </tbody>
+    </table>
 
-<button class="home-btn" onclick="location.href='/'">🏠 홈으로</button>
+    <div class="pagination">
+        <a th:if="${currentPage > 1}" th:href="@{'/board/list?page=' + ${currentPage - 1}}">이전</a>
 
+        <span th:each="page : ${#numbers.sequence(1, totalPages)}">
+        <a th:if="${page != currentPage}" th:href="@{'/board/list?page=' + ${page}}" th:text="${page}"></a>
+        <span th:if="${page == currentPage}" class="current" th:text="${page}"></span>
+    </span>
+
+        <a th:if="${currentPage < totalPages}" th:href="@{'/board/list?page=' + ${currentPage + 1}}">다음</a>
+    </div>
+</div>
 </body>
 </html>

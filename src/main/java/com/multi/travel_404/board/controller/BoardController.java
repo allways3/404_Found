@@ -23,25 +23,33 @@ public class BoardController {
         this.boardService = boardService;
     }
 
+    // 게시글 목록 조회
     @GetMapping("/list")
-    public String listBoards(Model model) {
-        try {
-            List<BoardDTO> boardDTOList = boardService.selectList();
-            model.addAttribute("list", boardDTOList);
-            return "board/board_list";
-        } catch (Exception e) {
-            model.addAttribute("msg", "게시글 목록 조회 실패");
-            return "board/board_list";
-        }
+    public String listBoards(@RequestParam(name = "page", defaultValue = "1") int page, Model model) {
+        int pageSize = 10;
+        int offset = (page - 1) * pageSize;
+
+        List<BoardDTO> boardDTOList = boardService.selectList(pageSize, offset);
+        int totalCount = boardService.getTotalCount();
+        int totalPages = (int) Math.ceil((double) totalCount / pageSize);
+
+        model.addAttribute("list", boardDTOList);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+
+        return "board/board_list";
     }
 
+    // 특정 게시글 상세 조회
     @GetMapping("/selectone")
     public String findBoardDetail(@RequestParam("no") int pid, Model model) {
         try {
-            BoardDTO boardDTO = boardService.selectBoard(pid);
+            boardService.increaseViewCount(pid);
+            BoardDTO boardDTO = boardService.getBoard(pid);
+
             if (boardDTO != null) {
                 model.addAttribute("b", boardDTO);
-                return "board/board_detail"; // 상세 페이지로 이동
+                return "board/board_detail";
             } else {
                 model.addAttribute("msg", "해당 게시글이 존재하지 않습니다.");
                 return "common/errorPage";
@@ -52,11 +60,13 @@ public class BoardController {
         }
     }
 
+    // 게시글 작성
     @GetMapping("/insert")
     public String getInsertForm() {
         return "board/insertform";
     }
 
+    // 게시글 작성
     @PostMapping("/insert")
     public String insertBoard(@RequestParam("title") String title,
                               @RequestParam("content") String content,
@@ -66,38 +76,37 @@ public class BoardController {
         boardDTO.setTitle(title);
         boardDTO.setContent(content);
 
-        // Spring Security Authentication 객체에서 CustomUser 정보 추출
+
         if (authentication == null || !authentication.isAuthenticated()) {
             model.addAttribute("msg", "로그인이 필요합니다.");
             return "common/errorPage";
         }
 
-        // CustomUser에서 MemberDTO 정보를 추출
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
-        MemberDTO memberDTO = customUser.getMemberDTO(); // getMemberDTO() 메소드가 있어야 함.
+        MemberDTO memberDTO = customUser.getMemberDTO();
 
         if (memberDTO == null) {
             model.addAttribute("msg", "사용자 정보가 올바르지 않습니다.");
             return "common/errorPage";
         }
 
-        boardDTO.setWriter(memberDTO.getId()); // MemberDTO의 id를 사용
+        boardDTO.setWriter(memberDTO.getId());
 
         int result = boardService.insertBoard(boardDTO);
 
         if (result > 0) {
-            return "redirect:/board/list"; // 게시글 목록 페이지로 리다이렉트
+            return "redirect:/board/list";
         } else {
             model.addAttribute("msg", "게시글 등록 실패");
             return "common/errorPage";
         }
     }
 
-
+    // 게시글 수정
     @GetMapping("/update")
     public String updateForm(@RequestParam("no") int bno, Model model) {
         try {
-            BoardDTO boardDTO = boardService.selectBoard(bno); // 기존 게시글 정보 가져오기
+            BoardDTO boardDTO = boardService.selectBoard(bno);
             model.addAttribute("b", boardDTO);
             return "board/updateform";
         } catch (Exception e) {
@@ -106,6 +115,7 @@ public class BoardController {
         }
     }
 
+    // 게시글 수정
     @PostMapping("/update")
     public String updateBoard(@RequestParam("no") int no,
                               @RequestParam("title") String title,
@@ -130,6 +140,7 @@ public class BoardController {
         }
     }
 
+    // 게시글 삭제
     @GetMapping("/delete")
     public String deleteBoard(@RequestParam("no") int bno, Model model) {
         try {
@@ -144,5 +155,13 @@ public class BoardController {
             model.addAttribute("msg", "게시글 삭제 중 오류 발생");
             return "common/errorPage";
         }
+    }
+
+    // 특정 게시글 조회
+    @GetMapping("/view")
+    public String viewBoard(@RequestParam("no") int no, Model model) {
+        BoardDTO board = boardService.getBoard(no);
+        model.addAttribute("board", board);
+        return "board/view";
     }
 }

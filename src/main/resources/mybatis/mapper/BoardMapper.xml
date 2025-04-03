@@ -18,11 +18,18 @@
         WHERE STATUS = 'Y'
     </select>
 
-    <select id="selectList" resultType="BoardDTO">
+    <select id="selectListWithPaging" resultType="BoardDTO">
         SELECT NO, TITLE, CONTENT, WRITER, CREATED_DATE, COUNT
         FROM BOARD
-        WHERE STATUS='Y'
+        WHERE STATUS = 'Y'
         ORDER BY NO DESC
+            LIMIT #{pageSize}
+        OFFSET #{offset}
+    </select>
+
+    <select id="getTotalCount" resultType="int">
+        SELECT COUNT(*)
+        FROM board
     </select>
 
     <select id="selectBoard" parameterType="_int" resultType="BoardDTO">
@@ -42,7 +49,7 @@
     </update>
 
     <insert id="insertBoard">
-        INSERT /* com.multi.jsp07.board.model.dao.BoardDAO.insertBoard() */
+        INSERT
         INTO BOARD
         ( TITLE
         , CONTENT
@@ -51,6 +58,7 @@
                , #{ content }
                , #{ writer })
     </insert>
+
     <update id="updateBoard">
         UPDATE BOARD
         SET TITLE   = #{ title }
@@ -62,7 +70,6 @@
         DELETE
         FROM BOARD
         WHERE NO = #{ no }
-
     </delete>
 
 </mapper>

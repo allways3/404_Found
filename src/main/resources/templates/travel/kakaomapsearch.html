@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>관광지 검색</title>
+    <link rel="stylesheet" href="/css/travel_list.css">
     <script type="text/javascript"
-            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a3f0cc4c3a1999faf58312fa6cec6f4f&libraries=services"></script>
-    <!--  <script type="text/javascript"-->
-    <!--          src="//dapi.kakao.com/v2/maps/sdk.js?appkey= 개인 카카오 맵 javascript api key &libraries=services"></script>-->
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=917c061535dec3a6877f321db0d02381&libraries=services"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -85,19 +85,21 @@
             font-weight: bold;
         }
     </style>
-</head>
-<body>
 
+</head>
+
+<body>
 <!-- 헤더 -->
-<div class="header">
-    <div class="header-left">
-        <div class="home-icon" onclick="location.href='/'">🏠</div>
-    </div>
-    <div class="nav">
-        <a href="/travel/list">목록보기</a>
-        <a onclick="location.href='/board/list'">공지사항</a>
-    </div>
+<div class="header-links" th:align="right">
+    <h3>
+        <div align="right">
+            <a href="/travel/list" style="text-decoration:none; color: inherit;" class="bt1">관광지 목록</a>
+            <a onclick="location.href='/board/list'">공지사항</a>
+            <a onclick="location.href='/'" class="home-btn">홈</a>
+        </div>
+    </h3>
 </div>
+
 
 <!-- 검색창 -->
 <div class="container">

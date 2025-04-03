@@ -46,6 +46,7 @@ public class TravelService {
         return travelMapper.getNearTravel(district);
     }
 
+    // 김민호
     public TravelDTO getDetailTravel(int no) {
         return travelMapper.getDetailTravel(no);
     }
