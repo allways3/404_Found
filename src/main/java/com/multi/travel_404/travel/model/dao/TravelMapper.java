@@ -24,4 +24,6 @@ public interface TravelMapper {
 
     //김민호
     List<TravelDTO> getNearTravel(String district);
+
+    TravelDTO getDetailTravel(int no);
 }

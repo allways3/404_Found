@@ -64,4 +64,11 @@ public class TravelController {
         return "travel/kakaomapsearch";
     }
 
+    @GetMapping("/selectone")
+    public String getDetailTravel(@RequestParam(name = "no") int no, Model model) {
+        TravelDTO travelDTO = travelService.getDetailTravel(no);
+        model.addAttribute("travel", travelDTO);
+        return "/travel/detailTravel";
+    }
+
 }

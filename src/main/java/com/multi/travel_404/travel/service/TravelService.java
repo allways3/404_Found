@@ -45,4 +45,8 @@ public class TravelService {
     public List<TravelDTO> getNearTouristSpots(String district) {
         return travelMapper.getNearTravel(district);
     }
+
+    public TravelDTO getDetailTravel(int no) {
+        return travelMapper.getDetailTravel(no);
+    }
 }
