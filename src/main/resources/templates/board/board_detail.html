@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>공지사항 상세보기</title>
+    <link rel="stylesheet" href="/css/travel_list.css">
+    <style>
+        .header {
+            position: relative;
+            padding: 20px;
+            text-align: center;
+        }
+
+        th, td {
+            border: 2px solid #ccc;
+            text-align: left;
+            box-sizing: border-box;
+        }
+
+        th {
+            background-color: #e0e0e0;
+            width: 20%;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        td {
+            width: 80%;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .edit-btn {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #0d47a1;
+            color: white;
+            font-size: 14px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid #0d47a1;
+        }
+
+        .edit-btn:hover {
+            text-decoration: underline;
+            color: red;
+        }
+
+        .list-btn {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .list-btn:hover {
+            background-color: #545b62;
+        }
+
+        .notice-table {
+            width: 100%;
+            border: 2px solid #ddd;
+            border-collapse: collapse;
+        }
+
+        .notice-table td {
+            border: 2px solid #ddd;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .notice-title {
+            background-color: #ddd;
+            font-weight: bold;
+
+        }
+
+        .notice-meta {
+            background-color: #ddd;
+            font-weight: bold;
+        }
+
+        .notice-content {
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+<div class="header-links" th:align="right">
+    <h3>
+        <div align="right">
+            <a href="/travel/list" style="text-decoration:none; color: inherit;" class="bt1">관광지 목록</a>
+            <a onclick="location.href='/'" class="home-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="35" height="35" viewBox="0,0,256,256">
+                    <g fill="#0d47a1" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                       stroke-linejoin="miter" stroke-miterlimit="10" style="mix-blend-mode: normal">
+                        <g transform="scale(5.12,5.12)">
+                            <path d="M24.96289,1.05469c-0.20987,0.00724 -0.41214,0.08036 -0.57812,0.20898l-23,17.94727c-0.43579,0.33978 -0.51361,0.96851 -0.17383,1.4043c0.33978,0.43579 0.96851,0.51361 1.4043,0.17383l1.38477,-1.08008v26.29102c0.00006,0.55226 0.44774,0.99994 1,1h13.83203c0.10799,0.01785 0.21818,0.01785 0.32617,0h11.67383c0.10799,0.01785 0.21818,0.01785 0.32617,0h13.8418c0.55226,-0.00006 0.99994,-0.44774 1,-1v-26.29102l1.38477,1.08008c0.2819,0.21983 0.65967,0.27257 0.991,0.13833c0.33133,-0.13423 0.56586,-0.43504 0.61526,-0.7891c0.0494,-0.35406 -0.09386,-0.70757 -0.37579,-0.92736l-7.61523,-5.94141v-7.26953h-6v2.58594l-9.38477,-7.32227c-0.18607,-0.14428 -0.41707,-0.21828 -0.65234,-0.20898zM25,3.32227l19,14.82617v26.85156h-12v-19h-14v19h-12v-26.85156zM37,8h2v3.70898l-2,-1.5625zM20,28h10v17h-10z"></path>
+                        </g>
+                    </g>
+                </svg>
+            </a>
+        </div>
+    </h3>
+</div>
+<div class="container">
+    <div class="header">
+        <span class="title">공지사항</span>
+        <div sec:authorize="hasRole('ROLE_ADMIN')" align="right">
+            <a th:href="@{/board/update(no=${b.no})}" class="edit-btn">수정</a>
+        </div>
+    </div>
+
+    <table class="notice-table">
+        <tr>
+            <td colspan="3" class="notice-title">
+                <strong style="font-size: 22px; font-weight: bold;">[ 공지사항 ]</strong> <span th:text="${b.title}" style="font-size: 22px; font-weight: bold;"></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="notice-meta">
+                작성자 : <span th:text="${b.writer}"></span>
+            </td>
+            <td class="notice-meta">
+                작성일 : <span th:text="${#temporals.format(b.createdDate, 'yyyy-MM-dd')}"></span>
+            </td>
+            <td class="notice-meta" style="text-align: right;">
+                조회수 : <span th:text="${b.count}"></span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" class="notice-content">
+                <p th:text="${b.content}"></p>
+            </td>
+        </tr>
+    </table>
+
+    <div class="button-container" style="margin: 10px 0;">
+        <a th:href="@{/board/list}" class="btn list-btn">목록으로</a>
+    </div>
+</div>
+</body>
+</html>
