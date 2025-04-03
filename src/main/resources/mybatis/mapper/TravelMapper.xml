@@ -35,4 +35,8 @@
     <select id="getNearTravel" parameterType="String" resultType="com.multi.travel_404.travel.model.dto.TravelDTO">
         SELECT * FROM travel where district = #{district}
     </select>
+
+    <select id="getDetailTravel" parameterType="int" resultType="com.multi.travel_404.travel.model.dto.TravelDTO">
+        SELECT * FROM travel where no = #{no}
+    </select>
 </mapper>
